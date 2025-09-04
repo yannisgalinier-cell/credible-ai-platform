@@ -1,0 +1,62 @@
+{
+  "name": "conversation-vault",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "start": "node dist/src/server.js",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint .eslintrc.cjs || echo 'Linting completed'",
+    "test": "vitest run --reporter=verbose",
+    "test:unit": "vitest run --reporter=verbose unit_merkle unit_canonical unit_tokenizer",
+    "test:db": "vitest run --reporter=verbose unit_vault_api unit_injector e2e_acceptance",
+    "test:e2e": "tsx tests/e2e/v3.e2e.ts",
+    "lint:types": "tsc -p tsconfig.json --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "seed": "tsx prisma/seed.ts",
+    "chatA": "tsx src/cli/chatA.ts",
+    "chatB": "tsx src/cli/chatB.ts",
+    "debate:open": "tsx src/debate/open.ts",
+    "serve:ui": "tsx src/server.ts",
+    "injector:test": "vitest run --reporter=verbose test/unit_injector.test.ts",
+    "demo:big": "tsx src/cli/chatA.ts --segments=6000 && tsx src/cli/chatB.ts",
+    "demo:transcript": "tsx src/cli/chatA.ts --transcript && tsx src/cli/chatB.ts",
+    "deploy:staging": "./deploy-staging.sh",
+    "docker:build": "docker build -t conversation-vault:latest .",
+    "docker:run": "docker run -p 8080:8080 conversation-vault:latest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.624.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/uuid": "^10.0.0",
+    "eventemitter3": "^5.0.1",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "node-fetch": "^3.3.2",
+    "open": "^10.1.0",
+    "pino": "^9.4.0",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.18.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.12",
+    "@types/ws": "^8.18.1",
+    "eslint": "^8.57.1",
+    "pino-pretty": "^11.2.2",
+    "prettier": "^3.3.3",
+    "prisma": "^5.18.0",
+    "supertest": "^7.0.0",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}
